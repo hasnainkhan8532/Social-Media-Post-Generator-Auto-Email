@@ -1,0 +1,410 @@
+{
+    "nodes": [
+      {
+        "parameters": {
+          "rule": {
+            "interval": [
+              {
+                "field": "hours",
+                "hoursInterval": 6
+              }
+            ]
+          }
+        },
+        "id": "7f5f9934-7ab8-43e9-a4cb-1583740a2e36",
+        "name": "Schedule Trigger",
+        "type": "n8n-nodes-base.scheduleTrigger",
+        "position": [
+          368,
+          240
+        ],
+        "typeVersion": 1.2
+      },
+      {
+        "parameters": {
+          "jsonSchemaExample": "[{\n \"title\": \"AI as Your First Content Hire: Why Founders Shouldn't Wait to Outsource Creation\",\n            \"rationale\": \"Most solopreneurs delay content scaling because they think hiring a ghostwriter is the next step — but AI can handle 80% with proper systems. This shifts content from a creative bottleneck to a scalable growth lever.\",\n            \"hook\": \"Ghostwriters are outdated. Train GPT once, and it ships LinkedIn gold in your voice daily. Welcome to hands-free thought leadership.\"\n          }]"
+        },
+        "id": "c7094a20-a96a-4db8-9ee4-95f86de800ac",
+        "name": "Structured Output Parser",
+        "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+        "position": [
+          848,
+          112
+        ],
+        "typeVersion": 1.2
+      },
+      {
+        "parameters": {
+          "promptType": "define",
+          "text": "=You are a linkedin content creator and copywriter. Given the title {{ $json.output[0].title }}, the rationale {{ $json.output[0].rationale }}, suggested hook. Generate text content for a linkedin post. Also describe a suitable image for the post.",
+          "hasOutputParser": true,
+          "batching": {}
+        },
+        "id": "84b30f40-e7fa-4c46-9a82-39bbd2becfe0",
+        "name": "Content creator",
+        "type": "@n8n/n8n-nodes-langchain.chainLlm",
+        "position": [
+          1136,
+          192
+        ],
+        "typeVersion": 1.7,
+        "alwaysOutputData": false
+      },
+      {
+        "parameters": {
+          "jsonSchemaExample": "{\n  \"post title\": \"Exciting New Feature Launch 🚀\",\n  \"post content\": \"After months of collaboration, testing, and fine-tuning, we're thrilled to introduce our latest product feature: Smart Insights. It helps users uncover meaningful patterns in their data with just a few clicks. This wouldn't have been possible without our incredible team and supportive community. We're excited for what's next — and we'd love your feedback!\",\n  \"image description\": \"A laptop screen showcasing the new Smart Insights dashboard with colorful charts and graphs, surrounded by a team clapping in the background.\"\n}"
+        },
+        "id": "cc1e5e3c-31de-4d1b-948b-89165fbc9769",
+        "name": "Structured Output Parser1",
+        "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+        "position": [
+          1296,
+          432
+        ],
+        "typeVersion": 1.2
+      },
+      {
+        "parameters": {
+          "jsonSchemaExample": "{\n  \"post title\": \"Exciting New Feature Launch 🚀\",\n  \"post content\": \"After months of collaboration, testing, and fine-tuning, we're thrilled to introduce our latest product feature: Smart Insights. It helps users uncover meaningful patterns in their data with just a few clicks. This wouldn't have been possible without our incredible team and supportive community. We're excited for what's next — and we'd love your feedback!\",\n  \"image description\": \"A laptop screen showcasing the new Smart Insights dashboard with colorful charts and graphs, surrounded by a team clapping in the background.\",\n\"Hashtags\":[\"#AI\",\"#Automation\"]\n}"
+        },
+        "id": "692b1c2e-bdc7-474e-859e-204970f512a6",
+        "name": "Structured Output Parser2",
+        "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+        "position": [
+          1856,
+          544
+        ],
+        "typeVersion": 1.2
+      },
+      {
+        "parameters": {},
+        "id": "f667d091-72aa-4bea-9648-4563a75265ff",
+        "name": "Merge",
+        "type": "n8n-nodes-base.merge",
+        "position": [
+          2208,
+          240
+        ],
+        "typeVersion": 3.2
+      },
+      {
+        "parameters": {
+          "options": {}
+        },
+        "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+        "typeVersion": 1,
+        "position": [
+          688,
+          128
+        ],
+        "id": "37fb2202-bf85-4b34-ad0c-b8eb762aad38",
+        "name": "Google Gemini Chat Model",
+        "credentials": {
+          "googlePalmApi": {
+            "id": "3qNKAQCYZwGLyzqa",
+            "name": "Google Gemini(PaLM) Api account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "options": {}
+        },
+        "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+        "typeVersion": 1,
+        "position": [
+          1120,
+          432
+        ],
+        "id": "d0ad7bc9-dc27-4fe6-8b28-01cbaa0ed329",
+        "name": "Google Gemini Chat Model1",
+        "credentials": {
+          "googlePalmApi": {
+            "id": "3qNKAQCYZwGLyzqa",
+            "name": "Google Gemini(PaLM) Api account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "options": {}
+        },
+        "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+        "typeVersion": 1,
+        "position": [
+          1616,
+          528
+        ],
+        "id": "15efd8d9-2946-40b4-a015-39471e3d4990",
+        "name": "Google Gemini Chat Model2",
+        "credentials": {
+          "googlePalmApi": {
+            "id": "3qNKAQCYZwGLyzqa",
+            "name": "Google Gemini(PaLM) Api account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "resource": "image",
+          "modelId": {
+            "__rl": true,
+            "value": "models/gemini-2.0-flash-preview-image-generation",
+            "mode": "list",
+            "cachedResultName": "models/gemini-2.0-flash-preview-image-generation"
+          },
+          "options": {
+            "sampleCount": 1
+          }
+        },
+        "type": "@n8n/n8n-nodes-langchain.googleGemini",
+        "typeVersion": 1,
+        "position": [
+          1568,
+          16
+        ],
+        "id": "5edff14f-313a-4068-aac4-52391a7fb052",
+        "name": "Generate an image",
+        "alwaysOutputData": false,
+        "credentials": {
+          "googlePalmApi": {
+            "id": "3qNKAQCYZwGLyzqa",
+            "name": "Google Gemini(PaLM) Api account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "fromEmail": "mailchimp@osmanbooks.com",
+          "toEmail": "hasnain.khan8532@gmail.com",
+          "subject": "Social Media Post Generator",
+          "emailFormat": "both",
+          "text": "={{ $('Content creator').item.json.output['post title'] }}\n\n{{ $('Content creator').item.json.output['post content'] }}\n\nHashtags:\n{{ $json.output.Hashtags }}\n\n{{ $('Generate an image').item.json.mimeType }}",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.emailSend",
+        "typeVersion": 2.1,
+        "position": [
+          2416,
+          240
+        ],
+        "id": "7e477eab-1d08-4fd8-819d-eeea18ac0a5c",
+        "name": "Send email",
+        "webhookId": "a554ec2b-7dea-488f-88ac-26a452d7b551",
+        "credentials": {
+          "smtp": {
+            "id": "Yzgli7qng01NRvXu",
+            "name": "SMTP account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "promptType": "define",
+          "text": "You are a Content Researcher Assistant at Agentic Vibe, an AI-first automation agency helping solopreneurs, creators, and digital-first founders grow their online presence — especially on LinkedIn — through scalable, hands-free content systems.\n\nYour task is to generate high-value content topics that align with our brand pillars and resonate deeply with our audience. These topics will later be expanded into posts by another agent.\n\n🔍 What to Focus On:\nGenerate content topics (not full content) based on these strategic themes:\n\nAI for Content Creation & Workflow Automation\n\nLinkedIn Automation Tools, Tactics & Growth Strategies\n\nSolopreneur Productivity Hacks Using AI & Automation\n\nSystems Thinking for Scaling Personal Brands\n\nThe Future of Work, Creators, and Automated Influence\n\nNo-Code Tools for Content & Lead Gen Automation\n\n✅ Your Output Per Topic:\nFor each idea, generate the following:\n\nTopic Title or Core Idea (1 line)\n\nShort Rationale (1–2 sentences on why this topic matters)\n\nSuggested Angle or Hook (1 LinkedIn-style framing or contrarian take)\n\n💡 Style Guide:\nKeep ideas insightful, actionable, and future-minded\n\nFavor founder-style energy: confident, sharp, and slightly contrarian when it adds value\n\nAvoid hype or jargon — focus on clarity, systemized insight, and utility",
+          "hasOutputParser": true,
+          "options": {}
+        },
+        "id": "928e2771-ec9f-48ff-b34e-9c3ab9c4a828",
+        "name": "Content topic generate",
+        "type": "@n8n/n8n-nodes-langchain.agent",
+        "position": [
+          688,
+          -144
+        ],
+        "typeVersion": 2
+      },
+      {
+        "parameters": {
+          "promptType": "define",
+          "text": "=You are an SEO specialist for LinkedIn. Your task is to generate highly relevant and effective hashtags for the following post. Consider the post's content, target audience, and current LinkedIn trends to maximize visibility and engagement.\n\n<post_title>{{ $json.output['post title'] }}</post_title>\n<post_content>{{ $json.output['post content'] }}</post_content>\n\nPlease generate:\n1. **3-5 broad, high-volume hashtags** (e.g., #AI, #Marketing, #Business)\n2. **3-5 niche-specific hashtags** that are directly relevant to the post's core topic (e.g., #SocialMediaAutomation, #ContentCreationAI, #LinkedInMarketingTips)\n3. **1-2 trending/topical hashtags** if applicable (e.g., #FutureOfWork, #DigitalTransformation)\n\nPresent them as a comma-separated list.",
+          "hasOutputParser": true,
+          "options": {}
+        },
+        "id": "f3901b98-cfe4-4d48-9e35-59161cbcfdd9",
+        "name": "Hashtag & SEO",
+        "type": "@n8n/n8n-nodes-langchain.agent",
+        "position": [
+          1696,
+          352
+        ],
+        "typeVersion": 2
+      },
+      {
+        "parameters": {
+          "content": "Designed by Hasnain Ayaz ",
+          "height": 80,
+          "color": 7
+        },
+        "type": "n8n-nodes-base.stickyNote",
+        "position": [
+          2064,
+          -224
+        ],
+        "typeVersion": 1,
+        "id": "b01e1f92-c76e-4a49-8161-0a757a1a11da",
+        "name": "Sticky Note"
+      }
+    ],
+    "connections": {
+      "Schedule Trigger": {
+        "main": [
+          [
+            {
+              "node": "Content topic generate",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Structured Output Parser": {
+        "ai_outputParser": [
+          [
+            {
+              "node": "Content topic generate",
+              "type": "ai_outputParser",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Content creator": {
+        "main": [
+          [
+            {
+              "node": "Hashtag & SEO",
+              "type": "main",
+              "index": 0
+            },
+            {
+              "node": "Generate an image",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Structured Output Parser1": {
+        "ai_outputParser": [
+          [
+            {
+              "node": "Content creator",
+              "type": "ai_outputParser",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Structured Output Parser2": {
+        "ai_outputParser": [
+          [
+            {
+              "node": "Hashtag & SEO",
+              "type": "ai_outputParser",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Merge": {
+        "main": [
+          [
+            {
+              "node": "Send email",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Google Gemini Chat Model": {
+        "ai_languageModel": [
+          [
+            {
+              "node": "Content topic generate",
+              "type": "ai_languageModel",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Google Gemini Chat Model1": {
+        "ai_languageModel": [
+          [
+            {
+              "node": "Content creator",
+              "type": "ai_languageModel",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Google Gemini Chat Model2": {
+        "ai_languageModel": [
+          [
+            {
+              "node": "Hashtag & SEO",
+              "type": "ai_languageModel",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Generate an image": {
+        "main": [
+          [
+            {
+              "node": "Merge",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Content topic generate": {
+        "main": [
+          [
+            {
+              "node": "Content creator",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Hashtag & SEO": {
+        "main": [
+          [
+            {
+              "node": "Merge",
+              "type": "main",
+              "index": 1
+            }
+          ]
+        ]
+      }
+    },
+    "pinData": {
+      "Schedule Trigger": [
+        {
+          "timestamp": "2025-08-22T07:08:18.857-04:00",
+          "Readable date": "August 22nd 2025, 7:08:18 am",
+          "Readable time": "7:08:18 am",
+          "Day of week": "Friday",
+          "Year": "2025",
+          "Month": "August",
+          "Day of month": "22",
+          "Hour": "07",
+          "Minute": "08",
+          "Second": "18",
+          "Timezone": "America/New_York (UTC-04:00)"
+        }
+      ]
+    },
+    "meta": {
+      "templateId": "4968",
+      "templateCredsSetupCompleted": true,
+      "instanceId": "a130bed38380db49a0cd8ceea31926b7337250833d7d32b604a91e453c9c0ddc"
+    }
+  }
