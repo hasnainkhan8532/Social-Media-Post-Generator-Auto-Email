@@ -1,6 +1,10 @@
-# Social Media Post Generator & Auto Email (n8n)
+<p align="center">
+  <img src="./Workflow.png" alt="n8n Workflow Overview" width="900" />
+</p>
 
-Automated LinkedIn-style post generation with AI + scheduled delivery via email. This n8n workflow:
+## Social Media Post Generator & Auto Email (n8n)
+
+Automated LinkedIn-style post generation with AI + scheduled delivery via email.
 
 - Generates content topics aligned to brand pillars
 - Writes a polished post (title + body + image prompt)
@@ -8,7 +12,7 @@ Automated LinkedIn-style post generation with AI + scheduled delivery via email.
 - Optionally generates an image prompt using Google Gemini image model
 - Emails the result on a schedule (every 6 hours by default)
 
-## What’s inside
+### What’s inside
 
 Nodes used (high level):
 
@@ -21,7 +25,7 @@ Nodes used (high level):
 - Merge: merges image + hashtag streams
 - Send email: sends the final result via SMTP
 
-## Prerequisites
+### Prerequisites
 
 - n8n running (self-hosted or desktop)
 - n8n AI nodes available (LangChain-based nodes bundled with n8n)
@@ -29,14 +33,14 @@ Nodes used (high level):
   - Google Gemini (PaLM) API account
   - SMTP account for sending email
 
-## Import the workflow
+### Import the workflow
 
 1. Open n8n → Workflows → Import from file
 2. Select the JSON file in this repo:
    - `Social Media Post Generator & Auto Email.json`
 3. Save the workflow
 
-## Configure credentials and settings
+### Configure credentials and settings
 
 1. Google Gemini credentials
    - Open nodes:
@@ -56,7 +60,7 @@ Nodes used (high level):
    - Open the `Schedule Trigger` node
    - Adjust the interval (default: every 6 hours)
 
-## How it works (flow)
+### How it works (flow)
 
 1. Schedule Trigger fires
 2. Content topic generate proposes a topic, rationale, and hook
@@ -72,18 +76,19 @@ Nodes used (high level):
 
 Note: The current template includes the image MIME type in the email. If you want to embed or attach the generated image, add handling to store the image output and attach/embed it in the `Send email` node.
 
-## Customization tips
+### Customization tips
 
 - Tune the brand pillars and instructions in the `Content topic generate` node text
 - Adjust the formatting in `Send email` to match your brand voice (e.g., HTML template)
 - Increase/decrease frequency via `Schedule Trigger`
 - Swap models or temperature settings in Gemini chat nodes to change tone
 
-## Files in this repo
+### Files in this repo
 
 - `Social Media Post Generator & Auto Email.json`: n8n workflow export
+- `Workflow.png`: visual overview (top)
 - `README.md`: this guide
 
-## Attribution
+### Attribution
 
 - Built with n8n and Google Gemini models
